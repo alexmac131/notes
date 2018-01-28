@@ -52,8 +52,8 @@ CREATE TABLE history (
     creationdate date NOT NULL,
     modificationdate date NOT NULL,
     byuserid integer NOT NULL,
-    action character varying(40) NOT NULL,
-    description text
+    description text,
+    event_type integer
 );
 
 
@@ -82,6 +82,22 @@ ALTER SEQUENCE history_history_id_seq OWNED BY history.history_id;
 
 
 --
+-- Name: historytypes; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE historytypes (
+    historytype_id integer NOT NULL,
+    creationdate date NOT NULL,
+    modificationdate date NOT NULL,
+    name character varying(40) NOT NULL,
+    purpose text NOT NULL,
+    active boolean DEFAULT true NOT NULL
+);
+
+
+ALTER TABLE historytypes OWNER TO postgres;
+
+--
 -- Name: notes; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -93,49 +109,12 @@ CREATE TABLE notes (
     private boolean DEFAULT true NOT NULL,
     locked boolean DEFAULT false,
     title character varying(40) NOT NULL,
-    note text
+    note text,
+    deleted boolean DEFAULT false
 );
 
 
 ALTER TABLE notes OWNER TO postgres;
-
---
--- Name: notes_history; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE notes_history (
-    noteshistory_id integer NOT NULL,
-    creationdate date NOT NULL,
-    oldnote text NOT NULL,
-    newnote text NOT NULL,
-    user_id integer,
-    note_id integer
-);
-
-
-ALTER TABLE notes_history OWNER TO postgres;
-
---
--- Name: notes_history_noteshistory_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE notes_history_noteshistory_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE notes_history_noteshistory_id_seq OWNER TO postgres;
-
---
--- Name: notes_history_noteshistory_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE notes_history_noteshistory_id_seq OWNED BY notes_history.noteshistory_id;
-
 
 --
 -- Name: notes_note_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -289,13 +268,6 @@ ALTER TABLE ONLY notes ALTER COLUMN note_id SET DEFAULT nextval('notes_note_id_s
 
 
 --
--- Name: notes_history noteshistory_id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY notes_history ALTER COLUMN noteshistory_id SET DEFAULT nextval('notes_history_noteshistory_id_seq'::regclass);
-
-
---
 -- Name: sharewith sharewith_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -325,11 +297,11 @@ ALTER TABLE ONLY history
 
 
 --
--- Name: notes_history notes_history_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: historytypes historytypes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY notes_history
-    ADD CONSTRAINT notes_history_pkey PRIMARY KEY (noteshistory_id);
+ALTER TABLE ONLY historytypes
+    ADD CONSTRAINT historytypes_pkey PRIMARY KEY (historytype_id);
 
 
 --
@@ -365,27 +337,19 @@ ALTER TABLE ONLY usertypes
 
 
 --
+-- Name: history fk_historytype; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY history
+    ADD CONSTRAINT fk_historytype FOREIGN KEY (event_type) REFERENCES historytypes(historytype_id);
+
+
+--
 -- Name: history history_byuserid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY history
     ADD CONSTRAINT history_byuserid_fkey FOREIGN KEY (byuserid) REFERENCES users(user_id);
-
-
---
--- Name: notes_history notes_history_note_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY notes_history
-    ADD CONSTRAINT notes_history_note_id_fkey FOREIGN KEY (note_id) REFERENCES notes(note_id);
-
-
---
--- Name: notes_history notes_history_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY notes_history
-    ADD CONSTRAINT notes_history_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(user_id);
 
 
 --
