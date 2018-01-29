@@ -24,17 +24,31 @@ CREATE SCHEMA test;
 ALTER SCHEMA test OWNER TO postgres;
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner:
 --
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner:
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+--
+-- Name: chkpass; Type: EXTENSION; Schema: -; Owner:
+--
+
+CREATE EXTENSION IF NOT EXISTS chkpass WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION chkpass; Type: COMMENT; Schema: -; Owner:
+--
+
+COMMENT ON EXTENSION chkpass IS 'data type for auto-encrypted passwords';
 
 
 SET search_path = public, pg_catalog;
@@ -177,14 +191,16 @@ ALTER SEQUENCE sharewith_sharewith_id_seq OWNED BY sharewith.sharewith_id;
 
 --
 -- Name: users; Type: TABLE; Schema: public; Owner: postgres
+-- Need to install the sudo apt-get install postgresql-contrib
 --
+CREATE EXTENSION chkpass;
 
 CREATE TABLE users (
     user_id integer NOT NULL,
     usertype integer,
     name character varying(40) NOT NULL,
     username character varying(40) NOT NULL,
-    password character varying(40) NOT NULL,
+    ls -ltpassword chkpass NOT NULL,
     creationdate date NOT NULL,
     modificationdate date NOT NULL,
     private boolean DEFAULT false NOT NULL,

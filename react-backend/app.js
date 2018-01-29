@@ -6,6 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var Client = require('pg-native');
 
+
+
 // database postgresql
 var client = new Client();
 // Test connnection
@@ -15,14 +17,20 @@ client.connect('postgresql://localhost/notes', function (err) {
 	}
 	client.query('SELECT  * from users', function (err, rows) {
 		if (err) {
-			throw err
+			throw err;
+			process.exit(1);
 		}
-		console.log(rows[0]) //
+		console.log(rows[0]);
 	})
 });
 
+
+
+
+
 		var index = require('./routes/index');
 		var users = require('./routes/users');
+		var notes = require('./routes/notes');
 
 		var app = express();
 
@@ -40,6 +48,8 @@ client.connect('postgresql://localhost/notes', function (err) {
 
 		app.use('/', index);
 		app.use('/users', users);
+		app.use('/notes', notes);
+
 
 		// catch 404 and forward to error handler
 		app.use(function (req, res, next) {
