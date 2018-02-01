@@ -5,11 +5,9 @@ body {
   background-color: #efe306;
 }
 
-
 .beer {
   background-color: cornflowerblue;
 }
-
 
 .loginwindow {
   position: absolute;
@@ -21,3 +19,25 @@ body {
   font-family: fantasy;
   font-size: 42px;
 }
+
+.coWorker {
+  position: fixed;
+  right: 5px;
+  background-color: cyan;
+  width: 45%;
+  height: 400px;
+}
+
+.myNotes {
+  position: fixed;
+  left: 5px;
+  background-color: cyan;
+  width: 45%;
+  height: 400px;
+}
+
+.glyphicon-info-sign {
+  cursor: pointer;
+  padding-left:  10px;
+}
+
