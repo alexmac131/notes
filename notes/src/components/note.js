@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Tooltip, OverlayTrigger} from 'react-bootstrap';
 
-class Note extends Component {
+class MakeNote extends Component {
 
 	render() {
 
@@ -27,7 +27,7 @@ class Note extends Component {
 
 		return (
 
-			<div className="noteMain">
+			<div className="noteMain">ssssss
 				<OverlayTrigger placement="top" overlay={makePrivate}>
 				<button className="btn btn-danger glyphicon glyphicon-eye-close"></button>
 				</OverlayTrigger>
@@ -53,4 +53,4 @@ class Note extends Component {
 
 }
 
-export default Note;
+export default MakeNote;

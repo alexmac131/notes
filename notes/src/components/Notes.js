@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import YourNotes from './note';
-import CoWorker from  './coWorkers';
+import MakeNote from './note';
+import NotesList from './notesList';
 
 import { Button } from 'reactstrap';
 class Notes extends Component {
@@ -11,10 +11,10 @@ class Notes extends Component {
 
 		return (
 			<div>
-				<Button color="danger">Danger!</Button>
 
-				<YourNotes/>
-				<CoWorker/>
+
+				<NotesList/>
+				<MakeNote/>
 			</div>
 		)
 	}

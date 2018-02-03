@@ -3,7 +3,7 @@ import {Tooltip, OverlayTrigger} from 'react-bootstrap';
 
 import Note from './note';
 
-class CoWorker extends Component {
+class NotesList extends Component {
 	constructor(props) {
 		super(props);
 
@@ -45,7 +45,7 @@ class CoWorker extends Component {
 
 		if (this.state.showList) {
 			return (
-				<div className="coWorker">
+				<div className="coWorker">aaaaaaaaa
 					{listItems}
 				</div>
 			)
@@ -59,4 +59,4 @@ class CoWorker extends Component {
 
 }
 
-export default CoWorker;
+export default NotesList;

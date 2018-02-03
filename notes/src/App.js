@@ -6,39 +6,31 @@ import Login from './components/login';
 import Notes from './components/Notes';
 
 
-
 class App extends Component {
-
-
 	constructor(props) {
 		super(props);
 		this.state = {
-			term : ''
+			term : '',
+			isLoggedIn : true
 		};
 	}
 
-
-
 	render() {
-		return <FrontDoor isLoggedIn={true}/>
-
+		return <FrontDoor isLoggedIn={this.state.isLoggedIn}/>
 	}
 }
 
 export default App;
+
 function FrontDoor(props) {
-		console.log ('aaaa');
-		const isLoggedIn = props.isLoggedIn;
 
+	const isLoggedIn = props.isLoggedIn;
+	console.log ('is loggged in %s', isLoggedIn);
+	if (isLoggedIn) {
 
-
-		if (isLoggedIn) {
-
-			return <Notes/>;
-		}
-		else {
-			return <Login/>;
-		}
-
-
-	};
+		return <Notes/>;
+	}
+	else {
+		return <Login/>;
+	}
+};
