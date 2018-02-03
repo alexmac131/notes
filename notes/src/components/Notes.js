@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import YourNotes from './yourNotes';
+import YourNotes from './note';
 import CoWorker from  './coWorkers';
 
 import { Button } from 'reactstrap';

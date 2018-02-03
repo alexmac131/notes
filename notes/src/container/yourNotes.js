@@ -6,14 +6,15 @@ import {Tooltip, OverlayTrigger} from 'react-bootstrap';
 class YourNotes extends Component {
 
 
-	constructor(props) {
-		super(props);
+	constructor(props, context) {
+		super(props, context);
 
 		this.toggle = this.toggle.bind(this);
 		this.state = {
 			tooltipOpen : false,
-			showList : true,
+			showList : true
 		};
+		this.onItemClick = this.onItemClick.bind(this);
 	}
 
 	toggle() {
@@ -22,6 +23,12 @@ class YourNotes extends Component {
 		});
 	}
 
+	onItemClick(event) {
+
+
+		this.setState({ showList: !this.state.showList});
+
+	}
 
 	render() {
 
@@ -59,6 +66,9 @@ class YourNotes extends Component {
 
 					<button className="btn btn-danger glyphicon glyphicon-eye-close"></button>
 
+
+					<button className="btn btn-danger glyphicon glyphicon-list-alt"
+						onClick={this.onItemClick}></button>
 
 
 				</div>
